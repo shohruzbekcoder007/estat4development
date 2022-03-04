@@ -1,0 +1,30 @@
+{
+    "ru": {
+        "list1": "list -ru 1",
+        "list2": "list -ru 2",
+        "list3": "list -ru 3",
+        "list4": "list -ru 4",
+        "list5": "list -ru 5"
+    },
+    "uz": {
+        "list1": "list -uz 1",
+        "list2": "list -uz 2",
+        "list3": "list -uz 3",
+        "list4": "list -uz 4",
+        "list5": "list -uz 5"
+    },
+    "uzc": {
+        "list1": "list -uzc 1",
+        "list2": "list -uzc 2",
+        "list3": "list -uzc 3",
+        "list4": "list -uzc 4",
+        "list5": "list -uzc 5"
+    },
+    "eng": {
+        "list1": "list -eng 1",
+        "list2": "list -eng 2",
+        "list3": "list -eng 3",
+        "list4": "list -eng 4",
+        "list5": "list -eng 5"
+    }
+}

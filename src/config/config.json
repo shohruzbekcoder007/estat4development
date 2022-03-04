@@ -1,0 +1,20 @@
+{
+    "language": [
+        {
+            "abbreviation": "ru",
+            "name": "ruscha"
+        },
+        {
+            "abbreviation": "uz",
+            "name": "o'zbekcha"
+        },
+        {
+            "abbreviation": "uzc",
+            "name": "o'zbekcha krill"
+        },
+        {
+            "abbreviation": "eng",
+            "name": "english"
+        }
+    ]
+}
