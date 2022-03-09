@@ -16,6 +16,11 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import GTranslateIcon from '@mui/icons-material/GTranslate';
+import config from './../../config/config.json';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Logout from '@mui/icons-material/Logout';
+import Avatar from '@mui/material/Avatar';
+import { setLanguage } from './../../globalState'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -58,13 +63,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function Header({handleDrawerOpen}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorLang, setAnchorLang] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
+  const isLangOpen = Boolean(anchorLang);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
+  };
+
+  const handleLanguageMenuOpen = (event) => {
+    setAnchorLang(event.currentTarget);
   };
 
   const handleMobileMenuClose = () => {
@@ -76,9 +87,18 @@ export default function Header({handleDrawerOpen}) {
     handleMobileMenuClose();
   };
 
+  const handleLangClose = (elem) => {
+    setAnchorLang(null);
+    handleMobileMenuClose();
+  };
+
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+
+  const changeLanguage = (elem) => {
+    setLanguage(elem.abbreviation);
+  }
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -97,8 +117,51 @@ export default function Header({handleDrawerOpen}) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <ListItemIcon><Avatar sx={{ width: 24, height: 24 }}/></ListItemIcon>
+        Profile
+        </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <ListItemIcon><Avatar sx={{ width: 24, height: 24 }}/></ListItemIcon>
+        My account
+        </MenuItem>
+      <MenuItem>
+          <ListItemIcon>
+            <Logout fontSize="small" />
+          </ListItemIcon>
+          Logout
+        </MenuItem>
+    </Menu>
+  );
+
+  const menuIdLang = 'primary-search-account-menu-lang';
+  const renderMenuLang = (
+    <Menu
+      anchorEl={anchorLang}
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      id={menuIdLang}
+      keepMounted
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      open={isLangOpen}
+      onClose={handleLangClose}
+    >
+      {
+        config.language.map((elem,index) => {
+          return  <MenuItem 
+            onClick={()=>{
+              changeLanguage(elem);
+              handleLangClose();
+            }} 
+            key={elem.abbreviation}>{elem.name}
+          </MenuItem>
+        })
+      }
     </Menu>
   );
 
@@ -139,14 +202,16 @@ export default function Header({handleDrawerOpen}) {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
-      <MenuItem>
+      <MenuItem onClick={handleLanguageMenuOpen}>
         <IconButton
           size="large"
-          aria-label="show 17 new notifications"
+          aria-label="account of current user1"
+          aria-controls="primary-search-account-menu-lang"
+          aria-haspopup="true"
           color="inherit"
         >
           <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
+            <GTranslateIcon />
           </Badge>
         </IconButton>
         <p>Language</p>
@@ -219,6 +284,17 @@ export default function Header({handleDrawerOpen}) {
             <IconButton
               size="large"
               edge="end"
+              aria-label="account of current user1"
+              aria-controls={menuIdLang}
+              aria-haspopup="true"
+              onClick={handleLanguageMenuOpen}
+              color="inherit"
+            >
+              <GTranslateIcon />
+            </IconButton>
+            <IconButton
+              size="large"
+              edge="end"
               aria-label="account of current user"
               aria-controls={menuId}
               aria-haspopup="true"
@@ -244,6 +320,7 @@ export default function Header({handleDrawerOpen}) {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
+      {renderMenuLang}
     </Box>
   );
 }
