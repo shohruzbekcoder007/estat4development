@@ -20,7 +20,8 @@ import config from './../../config/config.json';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Logout from '@mui/icons-material/Logout';
 import Avatar from '@mui/material/Avatar';
-import { setLanguage } from './../../globalState'
+import { setLanguage } from './../../globalState';
+import { Link } from 'react-router-dom'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -245,15 +246,21 @@ export default function Header({handleDrawerOpen}) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
+          <Link 
+            to = "/"
+            style={{
+              color: "inherit",
+            }}
           >
-            Davlat Statistika Qo'mitasi
-          </Typography>
-          
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ display: { xs: 'none', sm: 'block' } }}
+            >
+              Davlat Statistika Qo'mitasi
+            </Typography>
+          </Link>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <div style={{paddingTop: 5}}>

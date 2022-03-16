@@ -3,13 +3,14 @@ import axios from "../../baseUrl";
 import { observer } from "mobx-react";
 import { globalState } from "../../globalState";
 import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import MailIcon from '@mui/icons-material/Mail';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
-
+import {
+    Link
+  } from "react-router-dom";
 
 function Sidebar(props) {
 
@@ -36,12 +37,21 @@ function Sidebar(props) {
     <>
         <List>
             {management.map((element,index) => (
-                <ListItem button key={element._id}>
-                    <ListItemIcon>
-                        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                    </ListItemIcon>
-                    <ListItemText primary={element["name_" + globalState.language]} />
-                </ListItem>
+                <Link
+                    to={`/management`} 
+                    state={{ management: element }}
+                    style={{
+                        color: "inherit",
+                    }}
+                    key={element._id}
+                >
+                    <ListItem button>
+                        <ListItemIcon>
+                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                        </ListItemIcon>
+                            <ListItemText primary={element["name_" + globalState.language]} />
+                    </ListItem>
+                </Link>
             ))}
         </List>
     </>
